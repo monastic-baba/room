@@ -1,0 +1,52 @@
+(code gym) # 87. Design Time Versioned Key Value Store
+
+You are asked to design and implement an in-memory time versioned data store.
+The store maintains key-value pairs across time.
+Each write creates a new version for that key, associated with a timestamp.
+
+The store must support:
+  Writing a value for a key at the current timestamp.
+  Reading the latest value for a key.
+  Reading a historical value for a key as of a given timestamp.
+  Reading a value for a key by an explicit version number.
+
+
+All data must be stored in-memory (no database).
+
+Key Definitions
+  Key: a string identifier used to group versions (e.g., "price").
+  Value: a string payload stored for a key (e.g., "100").
+  Timestamp: number of seconds elapsed since 1 Jan 1970.
+  Version: a 0-based integer index per key. Every successful write increments the key's version by 1
+
+
+Method Signatures
+  boolean put(String key, String value, long currentTimestamp)
+      Stores the given value for key at the store's current timestamp. Each successful call creates a new version for that key. First put is version 0.
+      Returns true if the write is stored successfully.
+      Returns false if key or value is null or blank.
+      currentTimestamp will always be a positive integer and monotonically increasing .
+      If there are multiple writes for the same key at the same timestamp then they will be versioned in the order in which they occurred.
+  String get(String key)
+      Returns the latest value stored for key.
+      Returns the latest stored value if present.
+      Returns an empty string "" if the key has no stored value.
+  String get(String key, long timestamp)
+      Returns the value for key as of the provided timestamp.
+      If there exists at least one write for the key with writeTimestamp ≤ timestamp, return the value from the write with the maximum such writeTimestamp.
+      Returns an empty string "" if:
+      the key has no stored value, or
+      timestamp is earlier than the first write for that key.
+  String getByVersion(String key, int version)
+      Returns the value for key at the given version (0-based).
+      Returns the stored value for that exact version if it exists.
+      Returns an empty string "" if:
+      the key has no stored value, or
+      version is out of range (e.g., version < 0 or version > currentVersion).
+  List<String> listVersionTimestamps(String key)
+      Returns all verions and their timestamps for the stored versions of key in increasing order.
+      Each row is formatted as "version,timestamp" e.g. "2,28738734"
+      Returns an empty list if the key has no stored value.
+
+----*******-----------*******------------******------------------*******-----------*******------------******--------------
+

@@ -1,0 +1,122 @@
+meeting room reservation system
+  fixed list of meeting rooms
+  support booking and cancellation of meetings
+  no overlap of meetings in same room
+  if multiple rooms are free for a requested time, always choose the lexicographically smallest room id
+
+MAIN FILE CODE BELOW ----->
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import roomBooking.RoomBooking;
+
+//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
+// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+public class Main {
+
+  public static void main(String[] args) {
+    //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
+    // to see how IntelliJ IDEA suggests fixing it.
+
+////    roomBooking.RoomBooking rb = new roomBooking.RoomBooking(Arrays.asList("roomA", "roomB"));
+////    roomBooking.RoomBooking rb2 = new roomBooking.RoomBooking(Arrays.asList("Z1", "A1", "M3"));
+//    roomBooking.RoomBooking rb3 = new roomBooking.RoomBooking(Arrays.asList("A","B","C"));
+//
+//    List<String> results = new ArrayList<>();
+//
+////    results.add(rb.bookMeeting("m1", 10, 20));   // returns "roomA"
+////    results.add(rb.bookMeeting("m2", 15, 25));   // returns "roomB"
+////    results.add(rb.bookMeeting("m3", 20, 30));   // returns "" (20 conflicts with both rooms)
+////    results.add(String.valueOf(rb.cancelMeeting("m1")));          // returns true
+////    results.add(rb.bookMeeting("m4", 20, 30));   // returns "roomA" (now free after cancel)
+//
+//
+////    results.add(rb2.bookMeeting("x", 5, 5));
+////    results.add(rb2.bookMeeting("y", 5, 6));
+////    results.add(String.valueOf(rb2.cancelMeeting("nope")));
+////    results.add(rb2.bookMeeting("z", 6, 10));
+//
+//      results.add(rb3.bookMeeting("m1", 10, 20));
+//      results.add(rb3.bookMeeting("m2", 15, 25));
+//      results.add(rb3.bookMeeting("m3", 20, 30));
+//      results.add(rb3.bookMeeting("m4", 0, 9));
+//      results.add(rb3.bookMeeting("m5", 9, 10));
+//      results.add(rb3.bookMeeting("m6", 25, 25));
+//      results.add(String.valueOf(rb3.cancelMeeting("nope")));
+//      results.add(String.valueOf(rb3.cancelMeeting("m2")));
+//      results.add(rb3.bookMeeting("m7", 20, 25));
+//      results.add(String.valueOf(rb3.cancelMeeting("m1")));
+//      results.add(rb3.bookMeeting("m8", 20, 20));
+//      results.add(String.valueOf(rb3.cancelMeeting("m3")));
+//      results.add(rb3.bookMeeting("m9", 30, 40));
+//      results.add(rb3.bookMeeting("m7", 50, 60));
+//
+//
+//
+//    for(String s: results){
+//      System.out.println(s);
+//    }
+
+    // Initialize the roomBooking.RoomBooking object with the specific room names provided
+    RoomBooking rb = new RoomBooking(Arrays.asList("qa", "r02", "r1", "r10", "r2", "ra", "rb"));
+
+    List<String> results = new ArrayList<>();
+
+// 1. bookMeeting('x1', 5, 10) -> expected: "qa"
+    results.add(rb.bookMeeting("x1", 5, 10));
+
+// 2. bookMeeting('x2', 0, 4) -> expected: "qa"
+    results.add(rb.bookMeeting("x2", 0, 4));
+
+// 3. bookMeeting('x3', 4, 5) -> expected: "r02"
+    results.add(rb.bookMeeting("x3", 4, 5));
+
+// 4. bookMeeting('x4', 5, 5) -> expected: "r1"
+    results.add(rb.bookMeeting("x4", 5, 5));
+
+// 5. bookMeeting('x5', 5, 5) -> expected: "r10"
+    results.add(rb.bookMeeting("x5", 5, 5));
+
+// 6. bookMeeting('x6', 5, 5) -> expected: "r2"
+    results.add(rb.bookMeeting("x6", 5, 5));
+
+// 7. bookMeeting('x7', 5, 5) -> expected: "ra"
+    results.add(rb.bookMeeting("x7", 5, 5));
+
+// 8. bookMeeting('x8', 5, 5) -> expected: "rb"
+    results.add(rb.bookMeeting("x8", 5, 5));
+
+// 9. bookMeeting('x9', 5, 5) -> expected: ""
+    results.add(rb.bookMeeting("x9", 5, 5));
+
+// 10. bookMeeting('x12', 0, 100) -> expected: ""
+    results.add(rb.bookMeeting("x12", 0, 100));
+
+// 11. cancelMeeting('x4') -> expected: "true"
+    results.add(String.valueOf(rb.cancelMeeting("x4")));
+
+// 12. bookMeeting('x9', 5, 5) -> expected: "r1"
+    results.add(rb.bookMeeting("x9", 5, 5));
+
+// 13. cancelMeeting('x9') -> expected: "true"
+    results.add(String.valueOf(rb.cancelMeeting("x9")));
+
+// 14. cancelMeeting('x9') -> expected: "false"
+    results.add(String.valueOf(rb.cancelMeeting("x9")));
+
+// 15. bookMeeting('x5', 7, 8) -> expected: "" (ID already active)
+    results.add(rb.bookMeeting("x5", 7, 8));
+
+// 16. cancelMeeting('x5') -> expected: "true"
+    results.add(String.valueOf(rb.cancelMeeting("x5")));
+
+// 17. bookMeeting('x5', 7, 8) -> expected: "r02"
+    results.add(rb.bookMeeting("x5", 7, 8));
+
+// Print the final result set
+    for(String s : results){
+      System.out.println(s);
+    }
+  }
+}
