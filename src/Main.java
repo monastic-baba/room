@@ -1,3 +1,5 @@
+import InMemoryCache.InMemoryCache;
+import InMemoryCache.CacheBuilder;
 import KvStore.KvStore;
 import buyStocks.BuyStocks;
 import java.util.ArrayList;
@@ -42,11 +44,31 @@ public class Main {
 //    testmap.put("k1", maplist);
 //    System.out.println(testmap.get("k1").size());
 
-    List<String> whs = new ArrayList<>();
-    whs.add("w1");
-    whs.add("w2");
-    WarehouseStoreInventoryUpdate inventoryUpdate = new WarehouseStoreInventoryUpdate(whs);
-    inventoryUpdate.registerStore("s1", "w1");
+//    List<String> whs = new ArrayList<>();
+//    whs.add("w1");
+//    whs.add("w2");
+//    WarehouseStoreInventoryUpdate inventoryUpdate = new WarehouseStoreInventoryUpdate(whs);
+//    inventoryUpdate.registerStore("s1", "w1");
+
+    // capacity = 2, policy = REMOVE-LARGEST-POLICY
+    InMemoryCache cache =  new CacheBuilder(3, "REMOVE_HEAVIEST_POLICY").build();
+
+    System.out.println(cache.nextEvictionKey());
+
+    cache.put("az",   "v1");      // cache: { a }
+    cache.put("by",  "v2");      // cache: { a, bb }
+    cache.put("cx", "v3");
+
+    System.out.println(cache.nextEvictionKey());
+    // among {a(len=1), bb(len=2)} => "bb" is largest length
+
+
+    // step 1 (insert first): cache becomes { a, bb, ccc }  (size=3)
+    // step 2 (size > capacity): evict largest-length key among {a, bb, ccc} => "ccc"
+    // final cache: { a, bb }
+
+//    System.out.println(cache.get("ccc")); // -> ""
+//    System.out.println(cache.get("bb")); //  -> "v2"
 
 
   }
