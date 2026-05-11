@@ -1,4 +1,4 @@
-package InMemoryCache.EvictionPolicy;
+package inMemoryCache.EvictionPolicy;
 
 import java.util.Comparator;
 import java.util.Set;

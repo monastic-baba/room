@@ -1,6 +1,6 @@
-package InMemoryCache;
+package inMemoryCache;
 
-import InMemoryCache.EvictionPolicy.EvictionPolicy;
+import inMemoryCache.EvictionPolicy.EvictionPolicy;
 import java.util.HashMap;
 import java.util.Map;
 

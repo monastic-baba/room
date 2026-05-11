@@ -1,8 +1,8 @@
-package InMemoryCache;
+package inMemoryCache;
 
-import InMemoryCache.EvictionPolicy.EvictionPolicy;
-import InMemoryCache.EvictionPolicy.RemoveHeaviestEvictionPolicy;
-import InMemoryCache.EvictionPolicy.RemoveLargestEvictionPolicy;
+import inMemoryCache.EvictionPolicy.EvictionPolicy;
+import inMemoryCache.EvictionPolicy.RemoveHeaviestEvictionPolicy;
+import inMemoryCache.EvictionPolicy.RemoveLargestEvictionPolicy;
 
 public class EvictionPolicyFactory {
 
